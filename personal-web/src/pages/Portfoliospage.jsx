@@ -3,8 +3,10 @@ import Transition from '../components/Transition'
 
 function Portfoliospage() {
   return (
-    <div>Portfoliospage</div>
+    <Transition>
+        <div>Portfoliospage</div>
+    </Transition>
   )
 }
 
-export default Transition(Portfoliospage)
+export default Portfoliospage

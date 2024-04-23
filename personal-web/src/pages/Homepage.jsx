@@ -2,12 +2,12 @@ import React from 'react'
 import Transition from '../components/Transition'
 function Homepage() {
   return (
-    <>
-        <div>
-
+    <Transition>
+          <div>
+            Hello
         </div>
-    </>
+    </Transition>
   )
 }
 
-export default Transition(Homepage)
+export default Homepage

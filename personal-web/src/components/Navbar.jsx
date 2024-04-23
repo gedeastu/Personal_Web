@@ -12,9 +12,6 @@ function Navbar({links}) {
   const [isVisited, setIsVisited] = useState(1)
 
   const handleVisited = (current) => {
-    if (window.event.metaKey || window.event.ctrlKey) {
-       return;
-    }
     setIsVisited((previous)=>{
         return previous = current
     })
@@ -34,7 +31,7 @@ function Navbar({links}) {
   return (
     <nav className='p-5 justify-between sticky top-0 flex flex-row items-center'>
       <h1 className='font-extrabold text-lg'>ASTU NUGRAHA</h1>
-      <div className='w-4/12 relative mx-auto flex flex-row items-center justify-between'>
+      <div className='w-3/12 relative mx-auto flex flex-row items-center justify-between'>
         {link}
       </div>
       <Button spacing={`px-12 py-2`} primary rounded className={`font-medium text-lg`}>

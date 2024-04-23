@@ -4,11 +4,13 @@ import Transition from '../components/Transition'
 function Servicespage() {
   return (
    <>
-    <div>
+   <Transition>
+   <div>
         SERVICES
     </div>
+   </Transition>
    </>
   )
 }
 
-export default Transition(Servicespage)
+export default Servicespage

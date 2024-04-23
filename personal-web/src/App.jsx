@@ -16,24 +16,19 @@ import Portfoliospage from './pages/Portfoliospage'
 import Testimonialspage from './pages/Testimonialspage'
 import { AnimatePresence } from 'framer-motion'
 
-const location = useLocation()
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Routes location={location} key={location.pathname}>
       <Route path='/' element={<RootLayout/>}>
         <Route index element={<Homepage/>} />
         <Route path='/services' element={<Servicespage/>}/>
         <Route path='/portfolios' element={<Portfoliospage/>}/>
         <Route path='/testimonials' element={<Testimonialspage/>}/>
       </Route>
-    </Routes>
   )
 )
 function App() {
   return (
-    <AnimatePresence mode='wait'>
       <RouterProvider router={router} />
-    </AnimatePresence>
   )
 }
 
