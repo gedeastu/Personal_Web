@@ -1,0 +1,23 @@
+.nav-item:nth-child(1){
+    color: blue;
+    background-color: aqua;
+    width: 150px;
+}
+
+.nav-item:nth-child(2){
+    color: blue;
+    background-color: aquamarine;
+    width: 150px;
+}
+
+.nav-item:nth-child(3){
+    color: blue;
+    background-color: bisque;
+    width: 150px;
+}
+
+.nav-item:nth-child(4){
+    color: blue;
+    background-color: chartreuse;
+    width: 150px;
+}

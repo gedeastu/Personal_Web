@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Transition from '../components/Transition'
 function Homepage() {
   return (
     <>
@@ -10,4 +10,4 @@ function Homepage() {
   )
 }
 
-export default Homepage
+export default Transition(Homepage)

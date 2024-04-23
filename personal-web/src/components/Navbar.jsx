@@ -1,39 +1,40 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import {useState} from "react"
 import NavItem from './NavItem'
 import Button from './Button'
-function Navbar() {
-  const links = [
-    {
-        id:1,
-        label:"Home",
-        url:"/"
-    },
-    {
-        id:2,
-        label:"Services",
-        url:"/services"
-    },
-    {
-        id:3,
-        label:"Portfolios",
-        url:"/portfolios"
-    },
-    {
-        id:4,
-        label:"Testimonials",
-        url:"/testimonials"
+import { motion } from 'framer-motion'
+
+const buttonVariants = {
+  initial: { x: 0 },
+  animate: { y: '-10%' },
+};
+function Navbar({links}) {
+  const [isVisited, setIsVisited] = useState(1)
+
+  const handleVisited = (current) => {
+    if (window.event.metaKey || window.event.ctrlKey) {
+       return;
     }
-  ]
-  const link = links.map(link => {
-    return <NavItem key={link.id} to={link.url}>
-        {link.label}
-    </NavItem>
+    setIsVisited((previous)=>{
+        return previous = current
+    })
+  }
+
+  const link = links.map((link) => {
+    const visit = link.id === isVisited
+    return(
+      <motion.div key={link.id} tabIndex={link.id} animate={visit ? 'animate' : 'initial'} transition={{ duration: 0.5 }}  initial="initial" variants={buttonVariants} onClick={()=>handleVisited(link.id)}>
+        <NavItem to={link.url} className={visit && `font-bold border-b-2  border-very-dark-gray transition-all`}>
+            {link.label}
+        </NavItem>
+      </motion.div>
+    )
    })
+
   return (
-    <nav className='p-5 justify-between flex flex-row items-center'>
-      <h1>ASTU NUGRAHA</h1>
-      <div className='w-3/12 mx-auto flex flex-row items-center justify-between'>
+    <nav className='p-5 justify-between sticky top-0 flex flex-row items-center'>
+      <h1 className='font-extrabold text-lg'>ASTU NUGRAHA</h1>
+      <div className='w-4/12 relative mx-auto flex flex-row items-center justify-between'>
         {link}
       </div>
       <Button spacing={`px-12 py-2`} primary rounded className={`font-medium text-lg`}>

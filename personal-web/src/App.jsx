@@ -4,23 +4,36 @@ import {
   Routes, 
   Route,
   createRoutesFromElements,
-  RouterProvider
+  RouterProvider,
+  useLocation
 } 
 from 'react-router-dom'
 import './App.css'
 import Homepage from './pages/Homepage'
 import RootLayout from './layouts/RootLayout'
+import Servicespage from './pages/Servicespage'
+import Portfoliospage from './pages/Portfoliospage'
+import Testimonialspage from './pages/Testimonialspage'
+import { AnimatePresence } from 'framer-motion'
 
+const location = useLocation()
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<RootLayout/>}>
-      <Route index element={<Homepage/>} />
-    </Route>
+    <Routes location={location} key={location.pathname}>
+      <Route path='/' element={<RootLayout/>}>
+        <Route index element={<Homepage/>} />
+        <Route path='/services' element={<Servicespage/>}/>
+        <Route path='/portfolios' element={<Portfoliospage/>}/>
+        <Route path='/testimonials' element={<Testimonialspage/>}/>
+      </Route>
+    </Routes>
   )
 )
 function App() {
   return (
-    <RouterProvider router={router} />
+    <AnimatePresence mode='wait'>
+      <RouterProvider router={router} />
+    </AnimatePresence>
   )
 }
 
