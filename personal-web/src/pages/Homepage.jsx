@@ -8,7 +8,7 @@ function Homepage() {
   return (
     <Transition>
           <div>
-            {userData.name}
+            {console.log(userData)}
         </div>
     </Transition>
   )
