@@ -21,10 +21,12 @@ function Provider({children}){
                     Authorization: `token${token_api}`,
                 },
             })
-            setUserData(response.data);  
+            setUserData(response.data); 
+            console.log(response.data) 
         } catch (error) {
             console.error(`Error fetch data: `,error);
         }
+        console.log(res);
     },[])
 
     const valueToShare = {
