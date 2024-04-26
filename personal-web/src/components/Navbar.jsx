@@ -19,6 +19,7 @@ function Navbar({links}) {
 
   const link = links.map((link) => {
     const visit = link.id === isVisited
+    console.log(isVisited)
     return(
       <motion.div key={link.id} tabIndex={link.id} animate={visit ? 'animate' : 'initial'} transition={{ duration: 0.5 }}  initial="initial" variants={buttonVariants} onClick={()=>handleVisited(link.id)}>
         <NavItem to={link.url} className={visit && `font-bold border-b-2  border-very-dark-gray transition-all`}>
