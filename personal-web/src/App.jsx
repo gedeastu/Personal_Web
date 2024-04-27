@@ -6,8 +6,14 @@ import Servicespage from './pages/Servicespage'
 import Portfoliospage from './pages/Portfoliospage'
 import Testimonialspage from './pages/Testimonialspage'
 import { AnimatePresence } from 'framer-motion'
+import useProfileContext from './hooks/use-profile-context';
+import { useEffect } from 'react';
 
 function App() {
+  const {fetchProfile} = useProfileContext()
+  useEffect(()=>{
+    fetchProfile()
+  },[fetchProfile])
   return (
     <AnimatePresence mode='wait'>
       <Router>

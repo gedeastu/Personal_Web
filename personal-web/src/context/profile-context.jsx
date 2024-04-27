@@ -1,37 +1,29 @@
 import { createContext,useCallback,useState,useEffect } from "react";
-//import dotenv from 'dotenv';
 import axios from "axios";
+import env from 'react-dotenv'
 
-// dotenv.config();
 
 const ProfileContext = createContext();
-function Provider({children}){
-    const [userData,setUserData] = useState(null);
-    const profile_api = import.meta.env.GITHUB_PROFILE;
-    const token_api = import.meta.env.GITHUB_TOKEN
 
-    const fetchProfileGithub = useCallback(async () => {
-        if (!token_api) {
-            console.error(`Github token not found`);
-            return;
-        }
-        try {
-            const response = await axios.get(profile_api,{
-                headers: {
-                    Authorization: `token${token_api}`,
-                },
-            })
-            setUserData(response.data); 
-            console.log(response.data) 
-        } catch (error) {
-            console.error(`Error fetch data: `,error);
-        }
-        console.log(res);
-    },[])
+function Provider({children}){
+
+    const [userData,setUserData] = useState(null);
+    const profile_api = env.REACT_APP_GITHUB_API;
+    //const token_api = env.REACT_APP_GITHUB_KEY
+
+   const fetchProfile = useCallback(async () => {
+    const response = await axios.get(profile_api,{
+        // headers: {
+        //     Authorization: token_api,
+        // }
+    })
+    setUserData(response.data);
+   },[])
 
     const valueToShare = {
         userData:userData,
-        fetchProfileGithub:fetchProfileGithub
+        profile_api:profile_api,
+        fetchProfile:fetchProfile,
     }
 
     return(
@@ -40,5 +32,6 @@ function Provider({children}){
         </ProfileContext.Provider>
     )
 }
+
 export{Provider}
 export default ProfileContext;
