@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css'
 import Homepage from './pages/Homepage'
 import RootLayout from './layouts/RootLayout'
@@ -13,13 +13,23 @@ function App() {
   const {fetchProfile} = useProfileContext()
   useEffect(()=>{
     fetchProfile()
+    // const handleBeforeUnload = (e) => {
+    //   e.preventDefault();
+    //   e.returnValue = ''; // This is needed for Chrome
+    // };
+
+    // window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // return () => {
+    //     window.removeEventListener('beforeunload', handleBeforeUnload);
+    // };
   },[fetchProfile])
   return (
     <AnimatePresence mode='wait'>
       <Router>
         <Routes>
           <Route path='/' element={<RootLayout/>}>
-            <Route index element={<Homepage/>} />
+            <Route index  path='/'  element={<Homepage/>} />
             <Route path='/services' element={<Servicespage/>}/>
             <Route path='/portfolios' element={<Portfoliospage/>}/>
             <Route path='/testimonials' element={<Testimonialspage/>}/>

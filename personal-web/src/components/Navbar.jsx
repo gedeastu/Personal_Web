@@ -8,18 +8,22 @@ const buttonVariants = {
   initial: { x: 0 },
   animate: { y: '-10%' },
 };
-function Navbar({links}) {
-  const [isVisited, setIsVisited] = useState(1)
 
-  const handleVisited = (current) => {
-    setIsVisited((previous)=>{
-        return previous = current
-    })
+function Navbar({links}) {
+  const [isVisited, setIsVisited] = useState(0)
+
+  const handleVisited = (index) => {
+    try {
+      setIsVisited(index)
+      localStorage.setItem('isVisited', index)
+    } catch (error) {
+      console.error('Failed to save visited link to localStorage:', error);
+    }
   }
 
   const link = links.map((link) => {
-    const visit = link.id === isVisited
-    console.log(isVisited)
+    const visit = link.id === parseInt(localStorage.getItem("isVisited"))
+    //console.log(isVisited)
     return(
       <motion.div key={link.id} tabIndex={link.id} animate={visit ? 'animate' : 'initial'} transition={{ duration: 0.5 }}  initial="initial" variants={buttonVariants} onClick={()=>handleVisited(link.id)}>
         <NavItem to={link.url} className={visit && `font-bold border-b-2  border-very-dark-gray transition-all`}>
