@@ -10,7 +10,7 @@ import useProfileContext from './hooks/use-profile-context';
 import { useEffect } from 'react';
 
 function App() {
-  const {fetchProfile} = useProfileContext()
+  const {userData,fetchProfile} = useProfileContext()
   useEffect(()=>{
     fetchProfile()
     // const handleBeforeUnload = (e) => {
@@ -24,6 +24,9 @@ function App() {
     //     window.removeEventListener('beforeunload', handleBeforeUnload);
     // };
   },[fetchProfile])
+  if (!userData) {
+    return <div className='w-full h-screen flex justify-center items-center'>Loading..</div>
+  }
   return (
     <AnimatePresence mode='wait'>
       <Router>

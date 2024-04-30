@@ -6,12 +6,25 @@ const ProfileContext = createContext();
 function Provider({children}){
 
    const [userData,setUserData] = useState(null);
-   //const profile_api = import.meta.env.REACT_APP_GITHUB_PROFILE
+   const token_api = import.meta.env.REACT_APP_GITHUB_KEY
+   const profile_api = import.meta.env.REACT_APP_GITHUB_PROFILE
 
-   const fetchProfile = useCallback(async () => {
-    const response = await axios.get("https://api.github.com/users/gedeastu")
-    setUserData(response.data);
-   },[])
+       const fetchProfile = useCallback(async () => {
+        const response = await axios.get("https://api.github.com/users/gedeastu")
+        setUserData(response.data);
+       },[])
+        // const fetchProfile = async () => {
+        //     try {
+        //         const response = await axios.get(profile_api,{
+        //             headers:{
+        //                 Authorization:`token ${token_api}` 
+        //             }
+        //         })
+        //         setUserData(response.data);
+        //     }catch(error){
+        //         console.error(error)
+        //     }
+        // }
 
     const valueToShare = {
         userData:userData,

@@ -4,7 +4,8 @@ import {twMerge} from "tailwind-merge"
 function Button({children,primary,secondary, success, warning, danger, outline, rounded,spacing,...props}) {
   const classes = twMerge(classNames(props.className,`${spacing} text-very-dark-gray font-ubuntu`, {
     'bg-soft-yellow' : primary,
-    'rounded-full': rounded
+    'rounded-full': rounded,
+    'border-4 border-black': outline
   }))
   return (
     <button {...props} className={classes}>
@@ -12,6 +13,7 @@ function Button({children,primary,secondary, success, warning, danger, outline, 
     </button>
   )
 }
+
 Button.propTypes = {
     checkVariationValue: ({primary,secondary, success, warning, danger})=>{
         const count = Number(!!primary) + Number(!!secondary) + Number(!!success) + Number(!!warning) + Number(!!danger)
@@ -20,4 +22,5 @@ Button.propTypes = {
         }
     }
 }
+
 export default Button

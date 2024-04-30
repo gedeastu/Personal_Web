@@ -15,11 +15,11 @@ const variants = {
         x: -100,
     }
 }
-function Transition({children}) {
+function Transition({children,...props}) {
   return (
-    <motion.div variants={variants} initial="initial" animate="animate" exit="exit">
+    <motion.main  variants={variants} {...props} initial="initial" animate="animate" exit="exit">
         {children}
-    </motion.div>
+    </motion.main>
   )
 }
 

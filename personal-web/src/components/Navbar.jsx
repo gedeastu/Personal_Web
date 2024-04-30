@@ -39,7 +39,7 @@ function Navbar({links}) {
       <div className='w-3/12 relative mx-auto flex flex-row items-center justify-between'>
         {link}
       </div>
-      <Button spacing={`px-12 py-2`} primary rounded className={`font-medium text-lg`}>
+      <Button spacing={`px-14 py-3`} primary rounded className={`font-medium text-lg`}>
         Let's Talk.
       </Button>
     </nav>
