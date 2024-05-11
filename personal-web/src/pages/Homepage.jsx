@@ -76,6 +76,15 @@ function Homepage({ skill, interval = 3000 }) {
           {renderSkillItem}
         </div>
       </section>
+      <div className='h-screen w-full flex flex-col items-center py-32'>
+        <section className='flex flex-col items-center gap-2.5'>
+          <Heading fontBold borderBottom borderYellowBottom semiLargeHeading>Services.</Heading>
+          <Heading semiMediumHeading fontSemiBold>Here the services we are providing to you</Heading>
+        </section>
+        <section>
+
+        </section>
+      </div>      
     </Transition>
   )
 }
