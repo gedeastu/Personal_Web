@@ -2,14 +2,16 @@ import React from 'react'
 import className from 'classnames'
 import { twMerge } from 'tailwind-merge'
 
-function Heading({children,smallHeading,mediumHeading,leading,tracking,largeHeading,fontSemiBold,...props}) {
+function Heading({children,smallHeading,mediumHeading,semiMediumHeading ,leading,tracking,largeHeading,fontSemiBold,white,...props}) {
   const classes = twMerge(className(props.className,`font-raleway`,{
    'text-sm': smallHeading,
    'text-6xl': largeHeading,
    'text-2xl': mediumHeading,
+   'text-xl': semiMediumHeading,
    'font-semibold': fontSemiBold,
    'leading-snug':leading,
-   'tracking-wider':tracking
+   'tracking-wider':tracking,
+   'text-white': white
   }))
   return (
     <h1 className={classes} {...props}>

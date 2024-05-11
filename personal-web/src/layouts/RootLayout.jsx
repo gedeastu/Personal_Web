@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet,NavLink } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
 function RootLayout() {
@@ -23,7 +23,7 @@ function RootLayout() {
             id:4,
             label:"Testimonials",
             url:"/testimonials"
-        }
+        },
     ]
   return (
     <>
