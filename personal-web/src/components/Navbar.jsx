@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {useState} from "react"
 import NavItem from './NavItem'
 import Button from './Button'
@@ -10,7 +10,24 @@ const buttonVariants = {
 };
 
 function Navbar({links}) {
-  const [isVisited, setIsVisited] = useState(0)
+
+  const [, setIsVisited] = useState(0);
+  const [isScrolled,setIsScrolled] = useState(true);
+  const [prevScrollPos,setPrevScrollPos] = useState(0);
+  const [showShadow, setShowShadow] = useState(false)
+
+  useEffect(() => {
+    const handleScrolled = () => {
+      const currentScrollPos = window.scrollY;
+      setIsScrolled(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setShowShadow(currentScrollPos > 10);
+      setPrevScrollPos(currentScrollPos);
+    }
+    window.addEventListener("scroll", handleScrolled)
+    return ()=>{
+      window.removeEventListener("scroll", handleScrolled)
+    }
+  },[prevScrollPos])
 
   const handleVisited = (index) => {
     try {
@@ -31,10 +48,10 @@ function Navbar({links}) {
         </NavItem>
       </motion.div>
     )
-   })
+  })
 
   return (
-    <nav className='p-5 justify-between sticky top-0 flex flex-row items-center'>
+    <nav className={`p-5 justify-between top-0 left-0 transform transition-transform ${isScrolled ? `translate-y-0`:`-translate-y-full`} ${showShadow ? `shadow-md`:`shadow-none`} flex flex-row items-center transition-all duration-300 fixed w-full z-20 bg-light-grayish-orange ease-in-out`}>
       <h1 className='font-extrabold text-lg'>ASTU NUGRAHA</h1>
       <div className='w-3/12 relative mx-auto flex flex-row items-center justify-between'>
         {link}

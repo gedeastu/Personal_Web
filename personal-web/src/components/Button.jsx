@@ -1,11 +1,12 @@
 import React from 'react'
 import classNames from "classnames"
 import {twMerge} from "tailwind-merge"
-function Button({children,primary,secondary, success, warning, danger, outline, rounded,spacing,...props}) {
+function Button({children,primary,secondary, success, warning, danger, outline, rounded, textWhite,spacing,...props}) {
   const classes = twMerge(classNames(props.className,`${spacing} text-very-dark-gray font-ubuntu`, {
     'bg-soft-yellow' : primary,
     'rounded-full': rounded,
-    'border-4 border-black': outline
+    'border-4 border-black': outline,
+    'text-white':textWhite
   }))
   return (
     <button {...props} className={classes}>

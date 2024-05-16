@@ -27,7 +27,7 @@ function RootLayout() {
     ]
   return (
     <>
-    <div className='root-layout bg-light-grayish-orange w-screen h-screen'>
+    <div className='root-layout bg-light-grayish-orange w-screen h-full'>
         <Navbar links={links}/>
         <Outlet/>
     </div>

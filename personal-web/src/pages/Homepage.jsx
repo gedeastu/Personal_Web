@@ -2,6 +2,8 @@ import React,{useEffect, useState} from 'react'
 import "./Homepage.css"
 import Transition from '../components/Transition'
 import useProfileContext from '../hooks/use-profile-context'
+import { MdOutlineWeb,MdKeyboardDoubleArrowDown } from "react-icons/md";
+import { ImMobile } from "react-icons/im";
 import Heading from '../components/Heading'
 import Button from '../components/Button'
 import SkillList from '../components/SkillList'
@@ -15,6 +17,20 @@ function Homepage({ skill, interval = 3000 }) {
     {
         id:2,
         label:"Mobile Developer",
+    },
+  ]
+  const services = [
+    {
+      id:1,
+      label:"Website Developer",
+      icon:<MdOutlineWeb className='text-5xl' />,
+      desc:"Development of the graphical user interface of a website through the use of HTML, CSS, JavaScript, Tailwind CSS, & React JS so that users can view and interact with the website."
+    },
+    {
+      id:2,
+      label:"Mobile Developer",
+      icon:<ImMobile className='text-5xl' />,
+      desc:"Development of the graphical user interface of a mobile through the use of Flutter & Jetpack Compose Kotlin so that users can view and interact with the mobile."
     },
   ]
   const [currentSlide, setcurrentSlide] = useState(0)
@@ -42,9 +58,24 @@ function Homepage({ skill, interval = 3000 }) {
      </div>
     )
   })
+
+  const renderServices = services.map((value)=>{
+    return(
+      <div key={value.id} className='flex flex-col items-center justify-center gap-3 bg-lightgray px-10 h-96 w-[20vw] rounded-xl'>
+      {value.icon}
+      <Heading mediumHeading fontSemiBold>
+          {value.label}
+      </Heading>
+      <p className={`font-raleway text-center`}>
+        {value.desc}
+      </p>
+      </div>
+    )
+  })
   return (
     <Transition className="flex flex-col">
-      <div className='flex flex-row items-center h-[47rem] justify-center'>
+
+      <div className='flex flex-row items-center max-h-screen min-h-[47.5rem] justify-center my-10'>
         <section className=' w-[45%] flex flex-col justify-center'>
             <div className='w-full'>
               <Heading largeHeading leading tracking fontSemiBold>
@@ -55,7 +86,7 @@ function Homepage({ skill, interval = 3000 }) {
             <div className='flex flex-row mt-3 items-center justify-between w-[60%]'>
               <Button outline spacing={`px-10 py-3 rounded-full`} className={`text-xl font-medium`}>
                 Want to disscuss?
-            </Button>
+              </Button>
             <Button primary rounded spacing={`px-16 py-3 rounded-full`} className={`text-xl font-medium`}>
               Let's Talk.
             </Button>
@@ -68,7 +99,8 @@ function Homepage({ skill, interval = 3000 }) {
           </div>
         </section>
       </div>
-      <section className='bg-very-dark-gray w-full h-[5.5rem] flex flex-row overflow-hidden relative bottom-0 logos'>
+
+      <section className='bg-very-dark-gray w-full h-[5.5rem] flex flex-row overflow-hidden logos'>
         <div className='logos-slide flex flex-row items-center h-full transition-all'>
           {renderSkillItem}
         </div>
@@ -76,14 +108,19 @@ function Homepage({ skill, interval = 3000 }) {
           {renderSkillItem}
         </div>
       </section>
-      <div className='h-screen w-full flex flex-col items-center py-32'>
+
+      <div className='h-screen relative w-full flex flex-col items-center py-32'>
         <section className='flex flex-col items-center gap-2.5'>
           <Heading fontBold borderBottom borderYellowBottom semiLargeHeading>Services.</Heading>
           <Heading semiMediumHeading fontSemiBold>Here the services we are providing to you</Heading>
         </section>
-        <section>
-
+        <section className='grid grid-cols-2 gap-5 mt-14'>
+          {renderServices}
         </section>
+        <Button primary className={`text-lg font-medium font-raleway rounded-xl mt-10 flex flex-row items-center gap-3`} spacing={`px-10 py-5`} >
+          Let see the Portofolios
+          <MdKeyboardDoubleArrowDown className='text-2xl'/>
+        </Button>
       </div>      
     </Transition>
   )

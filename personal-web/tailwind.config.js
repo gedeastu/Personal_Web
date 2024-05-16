@@ -16,6 +16,7 @@ export default {
       'light-grayish-orange': '#f2efe8',
       'very-dark-gray':'#222222',
       'soft-yellow': '#F9DB4B',
+      'lightgray': '#D9D9D9',
       transparent: 'transparent',
       current: 'currentColor',
       black: colors.black,
