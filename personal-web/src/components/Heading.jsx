@@ -2,7 +2,7 @@ import React from 'react'
 import className from 'classnames'
 import { twMerge } from 'tailwind-merge'
 
-function Heading({children,smallHeading,mediumHeading,semiMediumHeading ,leading,tracking,largeHeading,semiLargeHeading,fontSemiBold,white,fontBold,fontBlack,borderBottom,borderYellowBottom ,...props}) {
+function Heading({children,smallHeading,mediumHeading,semiMediumHeading, largeHeading,semiLargeHeading ,leading,tracking,fontSemiBold,white,fontBold,fontBlack,borderBottom,borderYellowBottom ,...props}) {
   const classes = twMerge(className(props.className,`font-raleway`,{
    'text-sm': smallHeading,
    'text-6xl': largeHeading,
@@ -26,8 +26,8 @@ function Heading({children,smallHeading,mediumHeading,semiMediumHeading ,leading
 }
 
 Heading.propTypes = {
-  checkVariationValue:({smallHeading,mediumHeading,largeHeading,semiLargeHeading,fontSemiBold, fontBlack, fontBold, semiMediumHeading})=>{
-    const count = Number(!!smallHeading) + Number(!!mediumHeading) + Number(!!largeHeading) + Number(!!semiMediumHeading) + Number(!!fontSemiBold) + Number(!!fontBold) + Number(!!fontBlack) + Number(!!semiLargeHeading)
+  checkVariationValue:({smallHeading,mediumHeading,largeHeading,semiLargeHeading,semiMediumHeading})=>{
+    const count = Number(!!smallHeading) + Number(!!mediumHeading) + Number(!!largeHeading) + Number(!!semiMediumHeading) +  Number(!!semiLargeHeading)
     if (count > 1) {
       return new Error('Only One Text Theme')
     }

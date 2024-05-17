@@ -1,14 +1,17 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useRef, useState} from 'react'
 import "./Homepage.css"
 import Transition from '../components/Transition'
 import useProfileContext from '../hooks/use-profile-context'
 import { MdOutlineWeb,MdKeyboardDoubleArrowDown } from "react-icons/md";
+import { motion, useAnimation, useInView } from 'framer-motion'
 import { ImMobile } from "react-icons/im";
 import Heading from '../components/Heading'
 import Button from '../components/Button'
 import SkillList from '../components/SkillList'
 
 function Homepage({ skill, interval = 3000 }) {
+  const {userData} = useProfileContext()
+
   const skills = [
     {
         id:1,
@@ -19,6 +22,29 @@ function Homepage({ skill, interval = 3000 }) {
         label:"Mobile Developer",
     },
   ]
+  const [currentSlide, setcurrentSlide] = useState(0)
+  useEffect(()=>{
+    const nextSlide = (currentSlide + 1) % skill.length
+    const intervalId = setInterval(()=>{
+      setcurrentSlide(nextSlide)
+    },interval)
+
+    return ()=>clearInterval(intervalId);
+  },[currentSlide,skill.length, interval])
+  
+  const renderSkillItem = skill.map((value)=>{
+    return(
+      <div key={value.id} className={`flex flex-row items-center gap-3 mx-[5rem]`}>
+        <div className='text-white text-xl'>
+        {value.icon}
+        </div>
+        <Heading white fontSemiBold semiMediumHeading>
+          {value.label}
+        </Heading>
+     </div>
+    )
+  })
+
   const services = [
     {
       id:1,
@@ -33,32 +59,6 @@ function Homepage({ skill, interval = 3000 }) {
       desc:"Development of the graphical user interface of a mobile through the use of Flutter & Jetpack Compose Kotlin so that users can view and interact with the mobile."
     },
   ]
-  const [currentSlide, setcurrentSlide] = useState(0)
-
-  useEffect(()=>{
-    const nextSlide = (currentSlide + 1) % skill.length
-    const intervalId = setInterval(()=>{
-      setcurrentSlide(nextSlide)
-    },interval)
-
-    return ()=>clearInterval(intervalId);
-  },[currentSlide,skill.length, interval])
-
-  const {userData} = useProfileContext()
-
-  const renderSkillItem = skill.map((value)=>{
-    return(
-      <div key={value.id} className={`flex flex-row items-center gap-3 mx-[5rem]`}>
-        <div className='text-white text-xl'>
-        {value.icon}
-        </div>
-        <Heading white fontSemiBold semiMediumHeading>
-          {value.label}
-        </Heading>
-     </div>
-    )
-  })
-
   const renderServices = services.map((value)=>{
     return(
       <div key={value.id} className='flex flex-col items-center justify-center gap-3 bg-lightgray px-10 h-96 w-[20vw] rounded-xl'>
@@ -71,6 +71,13 @@ function Homepage({ skill, interval = 3000 }) {
       </p>
       </div>
     )
+  })
+
+  const animation = useAnimation()
+  const scrollRef = useRef(null)
+  const isInView = useInView(scrollRef,{
+    amount:"all",
+    once:true,
   })
   return (
     <Transition className="flex flex-col">
@@ -109,19 +116,60 @@ function Homepage({ skill, interval = 3000 }) {
         </div>
       </section>
 
-      <div className='h-screen relative w-full flex flex-col items-center py-32'>
+      <div ref={scrollRef} className='h-screen relative w-full flex flex-col items-center py-32'>
         <section className='flex flex-col items-center gap-2.5'>
-          <Heading fontBold borderBottom borderYellowBottom semiLargeHeading>Services.</Heading>
-          <Heading semiMediumHeading fontSemiBold>Here the services we are providing to you</Heading>
+          <motion.div
+            initial={{
+              opacity: 0
+            }}
+            animate={{
+              opacity: isInView ? 1 : 0,
+              y: isInView ? "0%":"-100%"
+            }}
+          >
+            <Heading fontBold borderBottom borderYellowBottom semiLargeHeading>Services.</Heading>
+          </motion.div>
+
+          <motion.div
+            animate={{
+              opacity: isInView ? 1 : 0,
+              y: isInView ? "0%":"-100%"
+            }}
+          >
+            <Heading semiMediumHeading fontSemiBold>Here the services we are providing to you</Heading>
+          </motion.div>
         </section>
         <section className='grid grid-cols-2 gap-5 mt-14'>
-          {renderServices}
+          <motion.div
+            animate={{
+              opacity: isInView ? 1 : 0,
+              x: isInView ? "0%":"-100%"
+            }}
+          >
+          {renderServices[0]}
+          </motion.div>
+          <motion.div
+            animate={{
+              opacity: isInView ? 1 : 0,
+              x: isInView ? "0%":"-100%"
+            }}
+          >
+          {renderServices[1]}
+          </motion.div>
         </section>
-        <Button primary className={`text-lg font-medium font-raleway rounded-xl mt-10 flex flex-row items-center gap-3`} spacing={`px-10 py-5`} >
-          Let see the Portofolios
-          <MdKeyboardDoubleArrowDown className='text-2xl'/>
-        </Button>
-      </div>      
+
+        <motion.div
+          animate={{
+            opacity: isInView ? 1 : 0,
+          }}
+        >
+          <Button primary className={`text-lg font-medium font-raleway rounded-xl mt-10 flex flex-row items-center gap-3`} spacing={`px-10 py-5`} >
+            Let see the Portofolios
+            <MdKeyboardDoubleArrowDown className='text-2xl animate-bounce duration-300'/>
+          </Button>
+        </motion.div>
+      </div>   
+
     </Transition>
   )
 }
