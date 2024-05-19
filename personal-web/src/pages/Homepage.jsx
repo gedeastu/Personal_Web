@@ -10,7 +10,7 @@ import Button from '../components/Button'
 import SkillList from '../components/SkillList'
 
 function Homepage({ skill, interval = 3000 }) {
-  const {userData} = useProfileContext()
+  const {userData,repos} = useProfileContext()
 
   const skills = [
     {
@@ -73,12 +73,37 @@ function Homepage({ skill, interval = 3000 }) {
     )
   })
 
-  const animation = useAnimation()
   const scrollRef = useRef(null)
-  const isInView = useInView(scrollRef,{
-    amount:"all",
+  const isInViewServices = useInView(scrollRef,{
+    margin:"-400px",
     once:true,
   })
+
+  const scrollAnimatedVariants = {
+    header_offscreen:{
+      opacity: 0,
+      y: "-100%"
+    },
+    header_onscreen:{
+      opacity: 1,
+      y: "0%"
+    },
+    contentServices_offscreen:{
+      opacity: 0,
+      x: "-100%"
+    },
+    contentServices_onscreen:{
+      opacity: 1,
+      x: "0%"
+    },
+    buttonServices_offscreen:{
+      opacity:0
+    },
+    buttonServices_onscreen:{
+      opacity:1
+    }
+  }
+
   return (
     <Transition className="flex flex-col">
 
@@ -116,59 +141,112 @@ function Homepage({ skill, interval = 3000 }) {
         </div>
       </section>
 
-      <div ref={scrollRef} className='h-screen relative w-full flex flex-col items-center py-32'>
-        <section className='flex flex-col items-center gap-2.5'>
+      <section ref={scrollRef} className='h-screen relative w-full flex flex-col items-center py-32'>
+        <div className='flex flex-col items-center gap-2.5'>
           <motion.div
-            initial={{
-              opacity: 0
+            initial="header_offscreen"
+            whileInView="header_onscreen"
+            viewport={{
+              once: true,
+              amount: 0.8
             }}
-            animate={{
-              opacity: isInView ? 1 : 0,
-              y: isInView ? "0%":"-100%"
-            }}
+            variants={scrollAnimatedVariants}
           >
             <Heading fontBold borderBottom borderYellowBottom semiLargeHeading>Services.</Heading>
           </motion.div>
 
           <motion.div
-            animate={{
-              opacity: isInView ? 1 : 0,
-              y: isInView ? "0%":"-100%"
-            }}
+             initial="header_offscreen"
+             whileInView="header_onscreen"
+             viewport={{
+               once: true,
+               amount: 0.8
+             }}
+             variants={scrollAnimatedVariants}
           >
             <Heading semiMediumHeading fontSemiBold>Here the services we are providing to you</Heading>
           </motion.div>
-        </section>
-        <section className='grid grid-cols-2 gap-5 mt-14'>
+        </div>
+        <div className='grid grid-cols-2 gap-5 mt-14'>
           <motion.div
-            animate={{
-              opacity: isInView ? 1 : 0,
-              x: isInView ? "0%":"-100%"
+            initial="contentServices_offscreen"
+            whileInView="contentServices_onscreen"
+            viewport={{
+              once: true,
+              amount: 0.6
             }}
+            variants={scrollAnimatedVariants}
           >
           {renderServices[0]}
           </motion.div>
           <motion.div
-            animate={{
-              opacity: isInView ? 1 : 0,
-              x: isInView ? "0%":"-100%"
-            }}
+           initial="contentServices_offscreen"
+           whileInView="contentServices_onscreen"
+           viewport={{
+            once: true,
+            amount: 0.5
+           }}
+           variants={scrollAnimatedVariants}
           >
           {renderServices[1]}
           </motion.div>
-        </section>
+        </div>
 
         <motion.div
-          animate={{
-            opacity: isInView ? 1 : 0,
+          initial="buttonServices_offscreen"
+          whileInView="buttonServices_onscreen"
+          viewport={{
+            once: true,
+            amount:0.6
           }}
+          variants={scrollAnimatedVariants}
         >
           <Button primary className={`text-lg font-medium font-raleway rounded-xl mt-10 flex flex-row items-center gap-3`} spacing={`px-10 py-5`} >
             Let see the Portofolios
             <MdKeyboardDoubleArrowDown className='text-2xl animate-bounce duration-300'/>
           </Button>
         </motion.div>
-      </div>   
+      </section>   
+
+      <section className='h-screen py-32 relative w-full flex flex-col items-center'>
+        <div className='flex flex-col items-center gap-2.5'>
+          <motion.div
+            initial="header_offscreen"
+            whileInView="header_onscreen"
+            viewport={{
+              once: true,
+              amount: 0.8
+            }}
+            variants={scrollAnimatedVariants}
+          >
+            <Heading fontBold borderBottom borderYellowBottom semiLargeHeading>Portfolios.</Heading>
+          </motion.div>
+
+          <motion.div
+            initial="header_offscreen"
+            whileInView="header_onscreen"
+            viewport={{
+              once: true,
+              amount: 0.8
+            }}
+            variants={scrollAnimatedVariants}
+          >
+            <Heading semiMediumHeading fontSemiBold>Here the services we are providing to you</Heading>
+          </motion.div>
+        </div>
+        <div>
+          {repos.map((repo)=>{
+            return (
+              <section key={repo.id}>
+                <h1>
+                  {repo.name}
+                </h1>
+                <a href={repo.html_url}>visit</a>
+              </section>
+            )
+          })}
+        </div>
+      </section>
 
     </Transition>
   )

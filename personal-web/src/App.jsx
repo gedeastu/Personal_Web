@@ -17,11 +17,11 @@ import { FaReact } from "react-icons/fa6";
 import { useEffect } from 'react';
 
 function App() {
-  const {userData,fetchProfile} = useProfileContext()
+  const {userData,fetchProfile,repos} = useProfileContext()
   useEffect(()=>{
     fetchProfile()
   },[fetchProfile])
-  if (!userData) {
+  if (!userData || !repos) {
     return <div className='w-full h-screen flex justify-center items-center'>Loading..</div>
   }
   const skills = [
